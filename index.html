@@ -133,7 +133,6 @@
   <canvas id="confettiCanvas"></canvas>
 
   <main class="card">
-    <!-- ORIGINAL CUTE ANIMAL WITH HEART -->
     <!-- ANIMAL WITH HEART -->
     <svg class="art" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -172,15 +171,13 @@
             fill="#ff7aa2"/>
     </svg>
 
-    <h1>Abby <3, Will you be my valentine?</h1>
+    <h1>Abby &lt;3, Will you be my valentine?</h1>
 
     <section class="button-zone" id="zone">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>Collapse commentComment on line R178manemlokesh commented on Feb 2, 2026 manemlokeshon Feb 2, 2026More actionsnhbbhjReactWrite a replyCode has comments. Press enter to view.
+      <button id="yesBtn" type="button">Yes</button>
+      <button id="noBtn" type="button">No</button>
     </section>
 
-    <!-- HINT (ONLY FIRST SECTION) -->
-    <!-- HINT -->
     <div class="hint" id="hint">“No” seems a bit shy 😈</div>
 
     <section class="result" id="result">
@@ -201,7 +198,6 @@
     const hint = document.getElementById("hint");
 
     /* ---------- CONFETTI (FIXED FULL SCREEN) ---------- */
-    /* ---------- CONFETTI ---------- */
     const confettiCanvas = document.getElementById("confettiCanvas");
 
     function resizeConfettiCanvas() {
@@ -258,18 +254,26 @@
       return Math.max(min, Math.min(max, n));
     }
 
+    // Set a clean starting position (important after removing GitHub junk)
+    function initNoPosition() {
+      noBtn.style.left = "62%";
+      noBtn.style.top = "50%";
+      noBtn.style.transform = "translateY(-50%)";
+    }
+    initNoPosition();
+
     function moveNo(px, py) {
       const z = zone.getBoundingClientRect();
       const b = noBtn.getBoundingClientRect();
 
       let dx = (b.left + b.width / 2) - px;
       let dy = (b.top + b.height / 2) - py;
-      let mag = Math.hypot(dx, dy) || 1;
+      const mag = Math.hypot(dx, dy) || 1;
       dx /= mag;
       dy /= mag;
 
       let newLeft = (b.left - z.left) + dx * 150;
-      let newTop  = (b.top - z.top) + dy * 150;
+      let newTop  = (b.top  - z.top)  + dy * 150;
 
       newLeft = clamp(newLeft, 0, z.width - b.width);
       newTop  = clamp(newTop, 0, z.height - b.height);
@@ -281,7 +285,7 @@
       growYes();
     }
 
-    zone.addEventListener("pointermove", e => {
+    zone.addEventListener("pointermove", (e) => {
       const b = noBtn.getBoundingClientRect();
       const d = Math.hypot(
         (b.left + b.width / 2) - e.clientX,
@@ -290,13 +294,13 @@
       if (d < 140) moveNo(e.clientX, e.clientY);
     });
 
-    noBtn.addEventListener("click", e => e.preventDefault());
+    // Prevent "No" from doing anything if clicked
+    noBtn.addEventListener("click", (e) => e.preventDefault());
 
-    /* ---------- YES CLICK ---------- */Collapse commentComment on line R292Leidy22-cc commented on Feb 2, 2026 Leidy22-ccon Feb 2, 2026More actions###yayyyy****ReactWrite a replyCode has comments. Press enter to view.
+    /* ---------- YES CLICK ---------- */
     yesBtn.addEventListener("click", () => {
       zone.style.display = "none";
-      hint.style.display = "none";     // ✅ HIDE THE HINT
-      hint.style.display = "none";     // HIDE THE HINT
+      hint.style.display = "none";
       result.style.display = "block";
       resizeConfettiCanvas();
       fullScreenConfetti();
@@ -304,5 +308,4 @@
   </script>
 </body>
 </html>
-
 
